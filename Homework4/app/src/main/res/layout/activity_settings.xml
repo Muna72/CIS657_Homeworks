@@ -51,6 +51,8 @@
         android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:prompt="@string/Kilometers"
+        android:entries="@array/distanceTypeList"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
@@ -64,6 +66,8 @@
         android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:prompt="@string/Degrees"
+        android:entries="@array/bearingTypeList"
         app:layout_constraintTop_toBottomOf="@+id/distanceList" />
 
     <TextView

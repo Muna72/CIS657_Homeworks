@@ -10,88 +10,127 @@
         android:id="@+id/long2"
         android:layout_width="139dp"
         android:layout_height="49dp"
+        android:layout_marginTop="86dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="85dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:text="Longitude"
-        tools:layout_editor_absoluteX="240dp"
-        tools:layout_editor_absoluteY="86dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/distance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/lat"
-        android:layout_width="139dp"
-        android:layout_height="49dp"
+        android:layout_width="176dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:text="Latitude"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="12dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/lat2"
+        app:layout_constraintEnd_toStartOf="@+id/lat2"
+        app:layout_constraintStart_toStartOf="@+id/long1"
+        app:layout_constraintTop_toTopOf="@+id/lat2" />
 
     <EditText
         android:id="@+id/lat2"
-        android:layout_width="139dp"
-        android:layout_height="49dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="25dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:text="Latitude"
-        tools:layout_editor_absoluteX="240dp"
-        tools:layout_editor_absoluteY="12dp" />
+        app:layout_constraintBottom_toTopOf="@+id/long2"
+        app:layout_constraintEnd_toEndOf="@+id/long2"
+        app:layout_constraintStart_toStartOf="@+id/long2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/long1"
         android:layout_width="139dp"
-        android:layout_height="49dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:text="Longitude"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="86dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/long2"
+        app:layout_constraintEnd_toStartOf="@+id/long2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/long2" />
 
     <TextView
         android:id="@+id/DistanceLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
         android:text="Distance:"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="175dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/long1" />
 
     <TextView
         android:id="@+id/BearingLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="19dp"
         android:text="Bearing"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="213dp" />
-
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="240dp"
-        tools:layout_editor_absoluteY="194dp" />
-
-    <TextView
-        android:id="@+id/bearing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="281dp"
-        tools:layout_editor_absoluteY="194dp" />
+        app:layout_constraintStart_toStartOf="@+id/DistanceLabel"
+        app:layout_constraintTop_toBottomOf="@+id/DistanceLabel" />
 
     <Button
         android:id="@+id/calculateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="45dp"
         android:text="Calculate"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="325dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bearing" />
 
     <Button
         android:id="@+id/clearButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
         android:text="Clear"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="413dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calculateButton" />
+
+    <EditText
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="175dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/bearing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distance" />
 
 </android.support.constraint.ConstraintLayout>

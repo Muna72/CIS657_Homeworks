@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">GeoCalculatorApp</string>
     <string name="title_activity_settings">SettingsActivity</string>
+
+    <!--Dog size options -->
+    <string name="Kilometers">Kilometers</string>
+    <string name="Miles">Miles</string>
+
+    <!--Dog size options -->
+    <string name="Degrees">Degrees</string>
+    <string name="Mils">Mils</string>
 </resources>
