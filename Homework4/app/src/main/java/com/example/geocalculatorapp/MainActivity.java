@@ -1,17 +1,21 @@
 package com.example.geocalculatorapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.*;
 
 public class MainActivity extends AppCompatActivity {
 
+    EditText distanceDisplay;
+    EditText bearingDisplay;
     String distance;
     String bearing;
 
     //These are the two strings that input will be passed back to from the settings view
-    String bearingUnits;
-    String distanceUnits;
+    static String bearingUnits;
+    static String distanceUnits;
+    public static final int SETTINGS_SELECTION = 1;
 
     Double lat1;
     Double lat2;
@@ -23,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText distanceDisplay = (EditText) findViewById(R.id.distance);
-        EditText bearingDisplay = (EditText) findViewById(R.id.bearing);
+        distanceDisplay = (EditText) findViewById(R.id.distance);
+        bearingDisplay = (EditText) findViewById(R.id.bearing);
         EditText latitudeOne = (EditText) findViewById(R.id.lat);
         EditText longitudeOne = (EditText) findViewById(R.id.long1);
         EditText latitudeTwo = (EditText) findViewById(R.id.lat2);
@@ -33,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
         Button clear = (Button) findViewById(R.id.clearButton);
 
         lat1 = Double.valueOf(String.valueOf(latitudeOne.getText()));
+        lat2 = Double.valueOf(String.valueOf(latitudeTwo.getText()));
+        lng1 = Double.valueOf(String.valueOf(longitudeOne.getText()));
+        lng2 = Double.valueOf(String.valueOf(longitudeTwo.getText()));
 
         distance = String.valueOf(distanceDisplay.getText());
         bearing = String.valueOf(bearingDisplay.getText());
 
         calculate.setOnClickListener(v-> {
-
-            if()
             distanceDisplay.setText(String.valueOf(calculateDistance(0.0,0.0)));
             bearingDisplay.setText(String.valueOf(calculateBearing()));
         });
@@ -54,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        if(resultCode == SETTINGS_SELECTION) {
+            distanceUnits = (data.getStringExtra(data.getStringExtra("distanceSelection")));
+            bearingUnits = (data.getStringExtra(data.getStringExtra("bearingSelection")));
+        }
+    }
 
 
     protected Double calculateBearing() {
