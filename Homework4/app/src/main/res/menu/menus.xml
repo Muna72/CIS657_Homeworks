@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/empty"
+        app:showAsAction="ifRoom"
+        android:title="@string/vertical_ellipsis">
+
+        <menu>
+            <item
+                android:id="@+id/settingsOption"
+                android:title="@string/settingsOption" />
+        </menu>
+    </item>
+
+</menu>

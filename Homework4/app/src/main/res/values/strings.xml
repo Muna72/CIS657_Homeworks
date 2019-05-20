@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">GeoCalculatorApp</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="vertical_ellipsis">&#8942;</string>
+    <string name="checkMark">&#10003;</string>
+    <string name="settingsOption">Settings</string>
 
     <!--Dog size options -->
     <string name="Kilometers">Kilometers</string>

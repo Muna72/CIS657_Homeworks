@@ -3,6 +3,9 @@ package com.example.geocalculatorapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,17 +39,16 @@ public class MainActivity extends AppCompatActivity {
         Button calculate = (Button) findViewById(R.id.calculateButton);
         Button clear = (Button) findViewById(R.id.clearButton);
 
-        lat1 = Double.valueOf(String.valueOf(latitudeOne.getText()));
-        lat2 = Double.valueOf(String.valueOf(latitudeTwo.getText()));
-        lng1 = Double.valueOf(String.valueOf(longitudeOne.getText()));
-        lng2 = Double.valueOf(String.valueOf(longitudeTwo.getText()));
-
         distance = String.valueOf(distanceDisplay.getText());
         bearing = String.valueOf(bearingDisplay.getText());
 
         calculate.setOnClickListener(v-> {
-            distanceDisplay.setText(String.valueOf(calculateDistance(0.0,0.0)));
-            bearingDisplay.setText(String.valueOf(calculateBearing()));
+            lat1 = Double.valueOf(String.valueOf(latitudeOne.getText()));
+            lat2 = Double.valueOf(String.valueOf(latitudeTwo.getText()));
+            lng1 = Double.valueOf(String.valueOf(longitudeOne.getText()));
+            lng2 = Double.valueOf(String.valueOf(longitudeTwo.getText()));
+            distanceDisplay.setText(calculateDistance(0.0,0.0));
+            bearingDisplay.setText(calculateBearing());
         });
 
         clear.setOnClickListener(v-> {
@@ -59,15 +61,44 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menus, menu); //your file name
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        //View actionView = menu.getItem(viewId).getActionView();
+        //View viewFromMyLayout = actionView.findViewById(R.id.viewFromMyLayout);
+
+        switch (item.getItemId()) {
+            case R.id.settingsOption:
+                Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+                startActivityForResult(intent,SETTINGS_SELECTION);
+        }
+        return false;
+    }
+
+    @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        System.out.println("GOTIT");
+
+        //Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.dualPane);
+        //fragment.onActivityResult(requestCode, resultCode, data);
+
         if(resultCode == SETTINGS_SELECTION) {
-            distanceUnits = (data.getStringExtra(data.getStringExtra("distanceSelection")));
-            bearingUnits = (data.getStringExtra(data.getStringExtra("bearingSelection")));
+            distanceUnits = (data.getStringExtra("distanceSelection"));
+            bearingUnits = (data.getStringExtra("bearingSelection"));
+            System.out.println(distanceUnits + " " + bearingUnits);
         }
     }
 
 
-    protected Double calculateBearing() {
+    protected String calculateBearing() {
 
         double longDiff= lng2-lng1;
         //all inputs to Math.sin(), Math.cos() and all the other trigonometric functions must be in radians.
@@ -79,13 +110,14 @@ public class MainActivity extends AppCompatActivity {
         double bearingInMils = (bearingInDegrees * 17.777777777778);
 
         if(bearingUnits == "Mils") {
-            return bearingInMils;
+            System.out.println("IN CONDITIONAL");
+            return bearingInMils + " Mils";
         }
 
-        return bearingInDegrees;
+        return bearingInDegrees + " degrees";
     }
 
-    protected Double calculateDistance(Double el1, Double el2) {
+    protected String calculateDistance(Double el1, Double el2) {
 
         final int R = 6371; // Radius of the earth
 
@@ -105,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
         double distanceInMiles = (distanceInKilometers * 0.621371);
 
         if(distanceUnits == "Miles") {
-            return distanceInMiles;
+            return distanceInMiles + " miles";
         }
-        return distanceInKilometers;
+        return distanceInKilometers + " kilometers";
     }
 }

@@ -1,5 +1,6 @@
 package com.example.geocalculatorapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.*;
@@ -12,6 +13,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     private String distanceSelection;
     private String bearingSelection;
+    private FloatingActionButton fab;
+    public Intent intent;
+    public static final int MAIN_SELECTION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         Spinner distanceList = (Spinner) findViewById(R.id.distanceList);
         Spinner bearingList = (Spinner) findViewById(R.id.bearingList);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         distanceList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -47,18 +52,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    //    .setAction("Action", null).show();
-                Intent intent = new Intent();
+        fab.setOnClickListener(v -> {
+                System.out.println("OK");
+                intent = new Intent(this, MainActivity.class);
                 intent.putExtra("distanceSelection", distanceSelection);
                 intent.putExtra("bearingSelection", bearingSelection);
-                setResult(MainActivity.SETTINGS_SELECTION,intent);
-                finish();
-            }
+                startActivityForResult(intent, MAIN_SELECTION);
+                setResult(MAIN_SELECTION, intent);
         });
     }
 
