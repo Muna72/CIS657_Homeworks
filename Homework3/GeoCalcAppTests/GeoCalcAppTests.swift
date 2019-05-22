@@ -1,15 +1,15 @@
 //
-//  GeoCalculatorAppTests.swift
-//  GeoCalculatorAppTests
+//  GeoCalcAppTests.swift
+//  GeoCalcAppTests
 //
-//  Created by Muna O. Gigowski on 5/14/19.
-//  Copyright © 2019 Muna O. Gigowski. All rights reserved.
+//  Created by Vamsy Priya Anne on 5/16/19.
+//  Copyright © 2019 Vamsy Priya Anne. All rights reserved.
 //
 
 import XCTest
-@testable import GeoCalculatorApp
+@testable import GeoCalcApp
 
-class GeoCalculatorAppTests: XCTestCase {
+class GeoCalcAppTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
