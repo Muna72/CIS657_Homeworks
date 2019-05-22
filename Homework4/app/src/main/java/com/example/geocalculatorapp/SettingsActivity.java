@@ -54,11 +54,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         fab.setOnClickListener(v -> {
                 System.out.println("OK");
-                intent = new Intent(this, MainActivity.class);
+                intent = new Intent();
                 intent.putExtra("distanceSelection", distanceSelection);
                 intent.putExtra("bearingSelection", bearingSelection);
-                startActivityForResult(intent, MAIN_SELECTION);
                 setResult(MAIN_SELECTION, intent);
+                finish();
         });
     }
 

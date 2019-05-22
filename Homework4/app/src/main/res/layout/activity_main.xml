@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/userEntry">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -32,8 +32,9 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:ems="10"
+        android:inputType="numberDecimal|numberSigned"
         android:hint="Longitude"
-        android:inputType="number"
+        android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/long1"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +51,8 @@
         android:layout_marginBottom="25dp"
         android:ems="10"
         android:hint="Latitude"
-        android:inputType="number"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal|numberSigned"
         app:layout_constraintBottom_toTopOf="@+id/long1"
         app:layout_constraintEnd_toStartOf="@+id/lat2"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +68,8 @@
         android:layout_marginBottom="7dp"
         android:ems="10"
         android:hint="Latitude"
-        android:inputType="number"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal|numberSigned"
         app:layout_constraintBottom_toBottomOf="@+id/lat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lat"
@@ -82,7 +85,8 @@
         android:layout_marginRight="91dp"
         android:ems="10"
         android:hint="Longitude"
-        android:inputType="number"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal|numberSigned"
         app:layout_constraintBottom_toBottomOf="@+id/long2"
         app:layout_constraintEnd_toStartOf="@+id/long2"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,24 +94,32 @@
 
     <TextView
         android:id="@+id/DistanceLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_width="0dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Distance:"
-        app:layout_constraintBaseline_toBaselineOf="@+id/distance"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/distance"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calculateButton"
+        app:layout_constraintVertical_bias="0.134" />
 
     <TextView
         android:id="@+id/BearingLabel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="305dp"
-        android:text="Bearing"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Bearing:"
+        app:layout_constraintBottom_toBottomOf="@+id/bearing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bearing"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/calculateButton"
@@ -135,40 +147,38 @@
         android:id="@+id/distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
         android:background="@null"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/bearing"
-        app:layout_constraintStart_toEndOf="@+id/DistanceLabel" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clearButton" />
 
     <EditText
         android:id="@+id/bearing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:background="@null"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBaseline_toBaselineOf="@+id/BearingLabel"
-        app:layout_constraintStart_toStartOf="@+id/distance" />
+        app:layout_constraintStart_toStartOf="@+id/distance"
+        app:layout_constraintTop_toBottomOf="@+id/distance" />
 
     <EditText
         android:id="@+id/userEntry"
         android:layout_width="216dp"
         android:layout_height="43dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginLeft="96dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="96dp"
-        android:layout_marginRight="96dp"
+        android:layout_marginEnd="191dp"
+        android:layout_marginRight="191dp"
         android:background="@android:color/white"
         android:ems="10"
         android:inputType="textPersonName"
         android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@+id/clearButton"
-        app:layout_constraintStart_toStartOf="@+id/distance"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

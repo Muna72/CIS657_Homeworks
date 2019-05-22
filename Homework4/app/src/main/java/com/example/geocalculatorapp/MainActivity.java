@@ -1,12 +1,17 @@
 package com.example.geocalculatorapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
+
+import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,16 +19,18 @@ public class MainActivity extends AppCompatActivity {
     EditText bearingDisplay;
     String distance;
     String bearing;
+    Button calculate;
 
     //These are the two strings that input will be passed back to from the settings view
-    static String bearingUnits;
-    static String distanceUnits;
+    static String bearingUnits = "";
+    static String distanceUnits = "";
     public static final int SETTINGS_SELECTION = 1;
 
     Double lat1;
     Double lat2;
     Double lng1;
     Double lng2;
+    DecimalFormat df = new DecimalFormat("#.###");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         EditText longitudeOne = (EditText) findViewById(R.id.long1);
         EditText latitudeTwo = (EditText) findViewById(R.id.lat2);
         EditText longitudeTwo = (EditText) findViewById(R.id.long2);
-        Button calculate = (Button) findViewById(R.id.calculateButton);
+        calculate = (Button) findViewById(R.id.calculateButton);
         Button clear = (Button) findViewById(R.id.clearButton);
 
         distance = String.valueOf(distanceDisplay.getText());
@@ -49,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
             lng2 = Double.valueOf(String.valueOf(longitudeTwo.getText()));
             distanceDisplay.setText(calculateDistance(0.0,0.0));
             bearingDisplay.setText(calculateBearing());
+            InputMethodManager inputManager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
         });
 
         clear.setOnClickListener(v-> {
@@ -58,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
             longitudeOne.setText("");
             latitudeTwo.setText("");
             longitudeTwo.setText("");
+            InputMethodManager inputManager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
         });
     }
 
@@ -85,36 +102,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
-        System.out.println("GOTIT");
-
-        //Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.dualPane);
-        //fragment.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == SETTINGS_SELECTION) {
             distanceUnits = (data.getStringExtra("distanceSelection"));
             bearingUnits = (data.getStringExtra("bearingSelection"));
-            System.out.println(distanceUnits + " " + bearingUnits);
+            calculate.performClick();
         }
     }
 
 
     protected String calculateBearing() {
 
-        double longDiff= lng2-lng1;
-        //all inputs to Math.sin(), Math.cos() and all the other trigonometric functions must be in radians.
-        //If your inputs are degrees you'll need to convert them using Math.toRadians()
-        double y = Math.sin(longDiff)*Math.cos(lat2);
-        double x = Math.cos(lat1)*Math.sin(lat2)-Math.sin(lat1)*Math.cos(lat2)*Math.cos(longDiff);
+        //Get the current location
+        Location startingLocation = new Location("starting point");
+        startingLocation.setLatitude(lat1);
+        startingLocation.setLongitude(lng1);
 
-        double bearingInDegrees = (Math.toDegrees(Math.atan2(y, x)) + 360) % 360;
+        //Get the target location
+        Location endingLocation = new Location("ending point");
+        endingLocation.setLatitude(lat2);
+        endingLocation.setLongitude(lng2);
+
+        double bearingInDegrees = startingLocation.bearingTo(endingLocation);
         double bearingInMils = (bearingInDegrees * 17.777777777778);
 
-        if(bearingUnits == "Mils") {
-            System.out.println("IN CONDITIONAL");
-            return bearingInMils + " Mils";
+        if(bearingUnits.equals("Mils")) {
+            return df.format(bearingInMils) + " Mils";
         }
 
-        return bearingInDegrees + " degrees";
+        return df.format(bearingInDegrees) + " Degrees";
     }
 
     protected String calculateDistance(Double el1, Double el2) {
@@ -133,12 +149,12 @@ public class MainActivity extends AppCompatActivity {
 
         distance = Math.pow(distance, 2) + Math.pow(height, 2);
 
-        double distanceInKilometers = (Math.sqrt(distance) * 1000);
+        double distanceInKilometers = (Math.sqrt(distance));
         double distanceInMiles = (distanceInKilometers * 0.621371);
 
-        if(distanceUnits == "Miles") {
-            return distanceInMiles + " miles";
+        if(distanceUnits.equals("Miles")) {
+            return df.format(distanceInMiles) + " Miles";
         }
-        return distanceInKilometers + " kilometers";
+        return df.format(distanceInKilometers) + " Kilometers";
     }
 }
