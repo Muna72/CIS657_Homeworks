@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="distanceTypeList">
+        <item>@string/Kilometers</item>
+        <item>@string/Miles</item>
+    </string-array>
+
+    <string-array name="bearingTypeList">
+        <item>@string/Degrees</item>
+        <item>@string/Mils</item>
+    </string-array>
+
+</resources>
