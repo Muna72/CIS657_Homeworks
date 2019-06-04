@@ -18,6 +18,8 @@ import org.joda.time.DateTime;
 
 import java.text.DecimalFormat;
 
+import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText latitudeOne;
@@ -60,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
         bearing = String.valueOf(bearingDisplay.getText());
 
         calculate.setOnClickListener(v-> {
-            if(StringUtils.isNumeric(latitudeOne.getText()) && StringUtils.isNumeric(latitudeTwo.getText())
-            && StringUtils.isNumeric(longitudeOne.getText()) && StringUtils.isNumeric(longitudeTwo.getText())) {
+            if(isCreatable(latitudeOne.getText().toString()) && isCreatable(latitudeTwo.getText().toString())
+            && isCreatable(longitudeOne.getText().toString()) && isCreatable(longitudeTwo.getText().toString())) {
                 lat1 = Double.valueOf(String.valueOf(latitudeOne.getText()));
                 lat2 = Double.valueOf(String.valueOf(latitudeTwo.getText()));
                 lng1 = Double.valueOf(String.valueOf(longitudeOne.getText()));
@@ -148,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         double bearingInDegrees = startingLocation.bearingTo(endingLocation);
         double bearingInMils = (bearingInDegrees * 17.777777777778);
 
-        if(bearingUnits.equals("Mils")) {
+        if("Mils".equals(bearingUnits)) {
             return "Bearing: " + df.format(bearingInMils) + " Mils";
         }
 
@@ -174,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         double distanceInKilometers = (Math.sqrt(distance));
         double distanceInMiles = (distanceInKilometers * 0.621371);
 
-        if(distanceUnits.equals("Miles")) {
+        if("Miles".equals(distanceUnits)) {
             return "Distance: " + df.format(distanceInMiles) + " Miles";
         }
         return "Distance: " + df.format(distanceInKilometers) + " Kilometers";
