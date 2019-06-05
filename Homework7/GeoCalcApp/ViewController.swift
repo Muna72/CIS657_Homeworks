@@ -22,7 +22,9 @@ class ViewController: UIViewController, SettingsViewControllerDelegate, HistoryT
     @IBOutlet weak var latTwo: UITextField!
     @IBOutlet weak var longTwo: UITextField!
     
-    var entries : [LocationLookup] = []
+    var entries : [LocationLookup] = [LocationLookup(origLat: 90.0, origLng: 0.0, destLat: -90.0, destLng: 0.0, timestamp: Date.distantPast),
+                                      LocationLookup(origLat: -90.0, origLng: 0.0, destLat: 90.0, destLng: 0.0, timestamp: Date.distantFuture)]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,7 @@ class ViewController: UIViewController, SettingsViewControllerDelegate, HistoryT
         longTwo.placeholder = "Enter Longitude for P2"
         // Do any additional setup after loading the view.
         self.hideKeyboardWhenTappedAround()
+        
     }
 
 
@@ -42,6 +45,7 @@ class ViewController: UIViewController, SettingsViewControllerDelegate, HistoryT
         bearingLabel.text = String(self.calculateBearing())
         entries.append(LocationLookup(origLat: Double(latOne!.text!)!, origLng: Double(longOne.text!)!, destLat: Double(latTwo.text!)!,
                                       destLng: Double(longTwo.text!)!, timestamp: Date()))
+        
     }
     
     @IBAction func onClickClear(_ sender: UIButton) {

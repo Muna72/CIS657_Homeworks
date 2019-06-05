@@ -18,6 +18,7 @@ class HistoryTableViewController: UITableViewController {
         LocationLookup(origLat: 90.0, origLng: 0.0, destLat: -90.0, destLng: 0.0, timestamp: Date.distantPast),
         LocationLookup(origLat: -90.0, origLng: 0.0, destLat: 90.0, destLng: 0.0, timestamp: Date.distantFuture)]
     
+    
     var historyDelegate:HistoryTableViewControllerDelegate?
     
     var tableViewData: [(sectionHeader: String, entries: [LocationLookup])]? {
@@ -37,7 +38,8 @@ class HistoryTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        print(entries[0])
+       //print(entries[0])
+        
     }
     
     func sortIntoSections(entries: [LocationLookup]) {
