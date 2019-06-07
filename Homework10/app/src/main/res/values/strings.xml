@@ -15,4 +15,8 @@
     <string name="title_activity_delete_me">DeleteMe</string>
     <string name="title_activity_history">HistoryActivity</string>
     <string name="title_activity_location_search">LocationSearchActivity</string>
+    <string name="loc_info">LocationInformation</string>
+    <string name="Gvsu">gvsu</string>
+    <string name="Msu">msu</string>
+    <string name="calc_date">CalculateDate</string>
 </resources>

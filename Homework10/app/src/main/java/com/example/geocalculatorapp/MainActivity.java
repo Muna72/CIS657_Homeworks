@@ -3,14 +3,18 @@ package com.example.geocalculatorapp;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 
+import com.google.android.libraries.places.api.Places;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
+import org.parceler.Parcels;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -52,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     public static int HISTORY_RESULT = 2;
     DatabaseReference topRef;
     public static List<LocationLookup> allHistory;
-
+    final int NEW_LOCATION_REQUEST = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +73,14 @@ public class MainActivity extends AppCompatActivity {
         longitudeTwo = (EditText) findViewById(R.id.long2);
         calculate = (Button) findViewById(R.id.calculateButton);
         Button clear = (Button) findViewById(R.id.clearButton);
+        Button search = (Button) findViewById(R.id.search);
+         search.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent newLocation = new Intent(MainActivity.this,LocationLookup.class);
+                 startActivityForResult(newLocation,NEW_LOCATION_REQUEST);
+             }
+         });
 
         distance = String.valueOf(distanceDisplay.getText());
         bearing = String.valueOf(bearingDisplay.getText());
@@ -112,8 +125,11 @@ public class MainActivity extends AppCompatActivity {
 
             inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                     InputMethodManager.HIDE_NOT_ALWAYS);
+
+            );
         });
 
+        Places.initialize(getApplicationContext(),"Your-Key-Goes-Here");
     }
 
     private ChildEventListener chEvListener = new ChildEventListener() {
@@ -201,7 +217,22 @@ public class MainActivity extends AppCompatActivity {
             this.longitudeTwo.setText(vals[3]);
             calculate.performClick();  // code that updates the calcs.
         }
-    }
+
+            else if (resultCode == NEW_LOCATION_REQUEST) {
+                if (data != null && data.hasExtra("Location")) {
+                    Parcelable parcel = data.getParcelableExtra("Location");
+                    LocationLookup l = Parcels.unwrap(parcel);
+                    Log.d("MainActivity", "New Loc:" + l.endLng);
+                }
+            }
+            else
+                super.onActivityResult(requestCode, resultCode, data);
+
+        }
+}
+
+
+
 
 
     protected String calculateBearing() {
