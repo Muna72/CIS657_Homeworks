@@ -125,12 +125,11 @@ public class MainActivity extends AppCompatActivity {
 
             inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                     InputMethodManager.HIDE_NOT_ALWAYS);
-
-            );
         });
 
         Places.initialize(getApplicationContext(),"Your-Key-Goes-Here");
     }
+
 
     private ChildEventListener chEvListener = new ChildEventListener() {
         @Override
@@ -229,7 +228,9 @@ public class MainActivity extends AppCompatActivity {
                 super.onActivityResult(requestCode, resultCode, data);
 
         }
-}
+
+
+
 
 
 

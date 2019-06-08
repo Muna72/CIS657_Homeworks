@@ -1,6 +1,7 @@
 package com.example.geocalculatorapp;
 
 import android.app.DatePickerDialog;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -25,6 +27,9 @@ import org.joda.time.format.ISODateTimeFormat;
 import org.parceler.Parcels;
 
 import java.sql.Date;
+import java.time.MonthDay;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -37,33 +42,41 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
 
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final String TAG = "New location ";
-    @BindView(R.id.Gvsu)
-    TextView gvsu;
-    @BindView(R.id.msu)
-    TextView msu;
-    @BindView(R.id.calc_date)
-    TextView calc_date;
-    @BindView(R.id.date)
-    TextView dateview;
-    @BindView(R.id.loc_info)
-    TextView loc_info;
+    @BindView(R.id.Gvsu) TextView gvsu;
+    @BindView(R.id.msu) TextView msu;
+    @BindView(R.id.calc_date) TextView calc_date;
+    @BindView(R.id.date) TextView dateView;
+    @BindView(R.id.loc_info) TextView loc_info;
 
-    private DateTime datepick;
+    private DateTime date;
     private DatePickerDialog dpDialog;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_search);
-        ButterKnife.bind(:this);
+        ButterKnife.bind(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        DateTime today = DateTime.now()
+        DateTime today = DateTime.now();
         dpDialog = DatePickerDialog.newInstance(this, today.getYear(), today.getMonthOfYear() - 1, today.getDayOfMonth());
-        dateview.setText(formatted(today));
+        dateView.setText(formatted(today));
+    }
+    @OnClick(R.id.Gvsu)
+    public void locationPressed() {
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
+        Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this);
+        startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+    }
+    @OnClick(R.id.msu)
+    public void locationPressed() {
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
+        Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this);
+        startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
     }
 
     @OnClick(R.id.date)
@@ -82,21 +95,22 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
         Parcelable parcel = Parcels.wrap(alocationlookup);
         result.putExtra("Location", parcel);
         setResult(RESULT_OK, result);
-        finish():
+        finish();
     }
 
     private String formatted(DateTime d) {
         return d.monthOfYear().
 
-                getAsShortText()(Locale.getDefault()) + " " + d.getDayOfMonth() + " , " + d.getYear();
+                getAsShortText(Locale.getDefault()) + " " + d.getDayOfMonth() + " , " + d.getYear();
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                Place pl = Autocomplete.getPlaceFromIntent(data)
-                        Location.setText(pl.getAddress())
+                Place pl = Autocomplete.getPlaceFromIntent(data);
+                        loc_info.setText(pl.getAddress());
                 Log.i(TAG, "onActivityResult:" + pl.getAddress());
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 //                   Status stat = Autocomplete.getStatusFromIntent(data);
@@ -111,17 +125,13 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
 
     }
 
+
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth)
-
-    Date =new
-
-    DateTime( year, monthOfYear +1, dayOfMOnth,0,0);
-            dateView.setText(
-
-    formatted(Date));
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        date =new DateTime(year,month + 1 , dayOfMonth, 0,0);
+        dateView.setText(formatted(date));
+    }
 }
-});
 
 
 
