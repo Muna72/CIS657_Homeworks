@@ -1,15 +1,21 @@
 package com.example.geocalculatorapp;
 
+import org.joda.time.DateTime;
 import org.parceler.Parcel;
 
-import org.joda.time.DateTime;
+
 @Parcel
 public class LocationLookup {
     double origLat;
     double origLng;
     double endLat;
     double endLng;
+    DateTime timestamp;
     String _key;
+
+    public LocationLookup() {
+
+    }
 
     public DateTime getTimestamp() {
         return timestamp;
@@ -19,7 +25,7 @@ public class LocationLookup {
         this.timestamp = timestamp;
     }
 
-    DateTime timestamp;
+
 
     public double getOrigLat() {
         return origLat;

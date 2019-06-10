@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import org.parceler.Parcels;
+
 public class HistoryActivity extends AppCompatActivity implements HistoryFragment.OnListFragmentInteractionListener {
 
     @Override
@@ -27,11 +29,11 @@ public class HistoryActivity extends AppCompatActivity implements HistoryFragmen
         });
     }
 
-    public void onListFragmentInteraction(LocationLookup item) {
+    public void onListFragmentInteraction(LocationLookup item) { //TODO is this right?
         System.out.println("Interact!");
         Intent intent = new Intent();
-        String[] vals = {String.valueOf(item.origLat), String.valueOf(item.origLng), String.valueOf(item.endLat), String.valueOf(item.endLng)};
-        intent.putExtra("item", vals);
+        //String[] vals = {String.valueOf(item.origLat), String.valueOf(item.origLng), String.valueOf(item.endLat), String.valueOf(item.endLng)};
+        intent.putExtra("item", Parcels.wrap(item));
         setResult(MainActivity.HISTORY_RESULT,intent);
         finish();
     }

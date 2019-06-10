@@ -40,8 +40,8 @@ dependencies {
    implementation 'com.android.support:recyclerview-v7:+'
    implementation 'com.google.android.libraries.places:places:1.1.0'
     implementation 'com.borax12.materialdaterangepicker:library:1.9'
-    implementation 'org.parceler:parceler-api:1.1.6'
-    annotationProcessor 'org.parceler:parceler:1.1.6'
+    implementation 'org.parceler:parceler-api:1.1.12'
+    annotationProcessor 'org.parceler:parceler:1.1.12'
     implementation 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 

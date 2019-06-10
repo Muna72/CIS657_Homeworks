@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                     SettingsActivity.class);
             startActivityForResult(intent, SETTINGS_SELECTION );
             return true;
-        } else if(item.getItemId() == R.id.action_history) { //TODO use parcels!!
+        } else if(item.getItemId() == R.id.action_history) {
             Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
             startActivityForResult(intent, HISTORY_RESULT );
             return true;
@@ -209,11 +209,16 @@ public class MainActivity extends AppCompatActivity {
             this.distanceUnits = data.getStringExtra("distanceUnits");
             calculate.performClick();
         } else if (resultCode == HISTORY_RESULT) {
-            String[] vals = data.getStringArrayExtra("item");
+            LocationLookup loc = (LocationLookup) Parcels.unwrap(getIntent().getParcelableExtra("item"));
+            /*String[] vals = data.getStringArrayExtra("item");
             this.latitudeOne.setText(vals[0]);
             this.longitudeOne.setText(vals[1]);
             this.latitudeTwo.setText(vals[2]);
-            this.longitudeTwo.setText(vals[3]);
+            this.longitudeTwo.setText(vals[3]); */
+            this.latitudeOne.setText(String.valueOf(loc.origLat));
+            this.longitudeOne.setText(String.valueOf(loc.origLng));
+            this.latitudeTwo.setText(String.valueOf(loc.endLat));
+            this.longitudeTwo.setText(String.valueOf(loc.endLng));
             calculate.performClick();  // code that updates the calcs.
         }
 
