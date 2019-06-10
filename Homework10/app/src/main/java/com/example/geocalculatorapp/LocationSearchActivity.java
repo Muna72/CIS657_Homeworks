@@ -1,19 +1,13 @@
 package com.example.geocalculatorapp;
 
 import android.app.DatePickerDialog;
-import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.util.Log;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.libraries.places.api.model.Place;
@@ -22,14 +16,10 @@ import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.parceler.Parcels;
 
-import java.sql.Date;
-import java.time.MonthDay;
-import java.time.Year;
-import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -42,8 +32,8 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
 
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final String TAG = "New location ";
-    @BindView(R.id.Gvsu) TextView gvsu;
-    @BindView(R.id.msu) TextView msu;
+    @BindView(R.id.loc1) TextView loc1;
+    @BindView(R.id.loc2) TextView loc2;
     @BindView(R.id.calc_date) TextView calc_date;
     @BindView(R.id.date) TextView dateView;
     @BindView(R.id.loc_info) TextView loc_info;
@@ -63,35 +53,36 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         DateTime today = DateTime.now();
-        dpDialog = DatePickerDialog.newInstance(this, today.getYear(), today.getMonthOfYear() - 1, today.getDayOfMonth());
+       // dpDialog = DatePickerDialog.newInstance (this, today.getYear(), today.getMonthOfYear() - 1, today.getDayOfMonth());
+       // DatePickerDialog.OnDateSetListener;
         dateView.setText(formatted(today));
     }
-    @OnClick(R.id.Gvsu)
+     @OnClick({R.id.loc1, R.id.loc2})
     public void locationPressed() {
-        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
-        Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this);
-        startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
-    }
-    @OnClick(R.id.msu)
-    public void locationPressed() {
-        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
+      List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
         Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this);
         startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
     }
 
+
     @OnClick(R.id.date)
     public void datePressed() {
-        dpDialog.show(getSupportFragmentManager(), "daterangeddialog");
+        dpDialog.show();
+        //dpDialog.show(getFragmentManager(), "daterangeddialog");
     }
 
     @OnClick(R.id.fab)
     public void FABPressed() {
         Intent result = new Intent();
         LocationLookup alocationlookup = new LocationLookup();
-        alocationlookup.origLat = origLat.getText().toString();
-        alocationlookup.endLat = endLat.getText().toString();
-        alocationlookup.origLng = origLng.getText().toString();
-        alocationlookup.endLng = endLng.getText().toString();
+        alocationlookup.getOrigLat();
+        alocationlookup.getOrigLng();
+        alocationlookup.getEndLat();
+        alocationlookup.getEndLng();
+       // DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+       // alocationlookup.date = fmt.print(date);
+        alocationlookup.getTimestamp();
+        // alocationlookup.endLng = endLat.getText().toString();
         Parcelable parcel = Parcels.wrap(alocationlookup);
         result.putExtra("Location", parcel);
         setResult(RESULT_OK, result);

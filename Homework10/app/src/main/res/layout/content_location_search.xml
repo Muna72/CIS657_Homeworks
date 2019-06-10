@@ -20,41 +20,32 @@
         />
 
     <TextView
-        android:id="@+id/Gvsu"
-        android:text="Grand Valley State University"
-        tools:layout_editor_absoluteX="114dp"
-        tools:layout_editor_absoluteY="59dp"
+        android:id="@+id/loc1"
         android:layout_width="0dp"
         android:layout_height="36dp"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:background="@android:color/white"
         android:drawableEnd="@drawable/ic_near_me_black_24dp"
         android:gravity="center"
+        android:text="Enter location"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loc_info"/>
+        app:layout_constraintTop_toBottomOf="@id/loc_info" />
 
     <TextView
-        android:id="@+id/msu"
-        android:text="Michigan State University"
-        tools:layout_editor_absoluteX="114dp"
-        tools:layout_editor_absoluteY="59dp"
+        android:id="@+id/loc2"
         android:layout_width="0dp"
         android:layout_height="36dp"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:background="@android:color/white"
         android:drawableEnd="@drawable/ic_near_me_black_24dp"
         android:gravity="center"
+        android:text="Enter location"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Gvsu"
-         />
+        app:layout_constraintTop_toBottomOf="@id/loc1" />
 
     <TextView
         android:id="@+id/date"
@@ -83,7 +74,7 @@
         tools:layout_editor_absoluteY="147dp"
         android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/msu"
+        app:layout_constraintTop_toBottomOf="@id/loc2"
        />// android:layout_marginTop="16dp"
         />
 </android.support.constraint.ConstraintLayout>

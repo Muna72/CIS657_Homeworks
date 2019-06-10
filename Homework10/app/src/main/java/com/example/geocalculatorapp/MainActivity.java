@@ -222,6 +222,9 @@ public class MainActivity extends AppCompatActivity {
                     Parcelable parcel = data.getParcelableExtra("Location");
                     LocationLookup l = Parcels.unwrap(parcel);
                     Log.d("MainActivity", "New Loc:" + l.endLng);
+                    Log.d("MainActivity", "New Loc:" + l.origLat);
+                    Log.d("MainActivity", "New Loc:" + l.endLat);
+                    Log.d("MainActivity", "New Loc:" + l.origLng);
                 }
             }
             else

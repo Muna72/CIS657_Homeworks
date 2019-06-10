@@ -1,8 +1,9 @@
 package com.example.geocalculatorapp;
 
+import org.parceler.Parcel;
 
 import org.joda.time.DateTime;
-
+@Parcel
 public class LocationLookup {
     double origLat;
     double origLng;
