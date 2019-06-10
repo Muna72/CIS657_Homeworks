@@ -9,10 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAc7JN-795C-G1K-mJ0U2USu6xNMJgSSn0"/>
+
         <activity
             android:name=".LocationSearchActivity"
             android:label="@string/title_activity_location_search"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <activity
             android:name=".HistoryActivity"
             android:label="@string/title_activity_history"

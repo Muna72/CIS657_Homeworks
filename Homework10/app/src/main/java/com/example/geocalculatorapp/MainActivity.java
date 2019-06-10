@@ -14,12 +14,16 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.libraries.places.api.Places;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -30,9 +34,11 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity   {
 
     EditText latitudeOne;
     EditText latitudeTwo;
@@ -58,8 +64,13 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference topRef;
     public static List<LocationLookup> allHistory;
     final int NEW_LOCATION_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -73,18 +84,21 @@ public class MainActivity extends AppCompatActivity {
         longitudeTwo = (EditText) findViewById(R.id.long2);
         calculate = (Button) findViewById(R.id.calculateButton);
         Button clear = (Button) findViewById(R.id.clearButton);
-        Button search = (Button) findViewById(R.id.search);
-         search.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent newLocation = new Intent(MainActivity.this,LocationLookup.class);
-                 startActivityForResult(newLocation,NEW_LOCATION_REQUEST);
-             }
-         });
+       // Button search = (Button) findViewById(R.id.search);
+         Button search = (Button) findViewById(R.id.search) ;
+        // search.setOnClickListener(new View.OnClickListener() {
+
+        // });
 
         distance = String.valueOf(distanceDisplay.getText());
         bearing = String.valueOf(bearingDisplay.getText());
-
+        search.setOnClickListener(v -> {
+            //@Override
+           // public void onClick(View v) {
+                Intent newLocation = new Intent(MainActivity.this,LocationSearchActivity.class);
+                startActivityForResult(newLocation,NEW_LOCATION_REQUEST);
+           // }
+        });
         calculate.setOnClickListener(v-> {
             if(isCreatable(latitudeOne.getText().toString()) && isCreatable(latitudeTwo.getText().toString())
             && isCreatable(longitudeOne.getText().toString()) && isCreatable(longitudeTwo.getText().toString())) {
@@ -127,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager.HIDE_NOT_ALWAYS);
         });
 
-        Places.initialize(getApplicationContext(),"Your-Key-Goes-Here");
+        Places.initialize(getApplicationContext(),"AIzaSyAc7JN-795C-G1K-mJ0U2USu6xNMJgSSn0");
     }
 
 

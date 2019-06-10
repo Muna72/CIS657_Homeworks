@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
@@ -53,13 +54,16 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         DateTime today = DateTime.now();
-       // dpDialog = DatePickerDialog.newInstance (this, today.getYear(), today.getMonthOfYear() - 1, today.getDayOfMonth());
+      // dpDialog = DatePickerDialog.newInstance (this, today.getYear(), today.getMonthOfYear() - 1, today.getDayOfMonth());
+
+
        // DatePickerDialog.OnDateSetListener;
         dateView.setText(formatted(today));
+        date = today;
     }
      @OnClick({R.id.loc1, R.id.loc2})
     public void locationPressed() {
-      List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
+      List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
         Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this);
         startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
     }
@@ -102,10 +106,10 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
             if (resultCode == RESULT_OK) {
                 Place pl = Autocomplete.getPlaceFromIntent(data);
                         loc_info.setText(pl.getAddress());
-                Log.i(TAG, "onActivityResult:" + pl.getAddress());
+                Log.i(TAG, "Place:" + pl.getAddress());
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-                //                   Status stat = Autocomplete.getStatusFromIntent(data);
-                Log.d(TAG, "onActivityResult: ");
+                                Status stat = Autocomplete.getStatusFromIntent(data);
+                Log.d(TAG, stat.getStatusMessage());
             } else if (requestCode == RESULT_CANCELED) {
                 System.out.println("Cancelled");
             }
