@@ -10,18 +10,18 @@ public class LocationLookup {
     double origLng;
     double endLat;
     double endLng;
-    DateTime timestamp;
+    String timestamp;
     String _key;
 
     public LocationLookup() {
 
     }
 
-    public DateTime getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(DateTime timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.geocalculatorapp.HistoryFragment.OnListFragmentInteractionListener;
 import com.truizlop.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 
+import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -33,7 +34,7 @@ public class HistoryAdapter extends
         DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
 
         for (LocationLookup hi : items) {
-            String key = "Entries for " + fmt.print(hi.timestamp);
+            String key = "Entries for " + fmt.print(new DateTime(hi.timestamp));
             List<LocationLookup> list = this.dayValues.get(key);
             if (list == null) {
                 list = new ArrayList<LocationLookup>();

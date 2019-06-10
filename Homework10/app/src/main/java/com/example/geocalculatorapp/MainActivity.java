@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 entry.setEndLat(lat2);
                 entry.setEndLng(lng2);
                 DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
-                entry.setTimestamp(DateTime.now());
+                entry.setTimestamp(fmt.print(DateTime.now()));
                 topRef.push().setValue(entry);
 
                 distanceDisplay.setText(calculateDistance(0.0, 0.0));
