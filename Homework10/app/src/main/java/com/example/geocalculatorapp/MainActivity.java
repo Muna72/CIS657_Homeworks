@@ -14,8 +14,11 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 
+import com.google.android.libraries.places.api.Places;
+
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -140,9 +143,14 @@ public class MainActivity extends AppCompatActivity   {
             inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                     InputMethodManager.HIDE_NOT_ALWAYS);
         });
-
+       // autocompleteAdapter = new PlaceAutocompleteAdapter(getActivity(),Places.getGeoDataClient(getActivity(), null),Lat_Long_Bounds,null);//
         Places.initialize(getApplicationContext(),"AIzaSyAc7JN-795C-G1K-mJ0U2USu6xNMJgSSn0");
+        PlacesClient placesClient = Places.createClient(this);
+
     }
+
+
+
 
 
     private ChildEventListener chEvListener = new ChildEventListener() {

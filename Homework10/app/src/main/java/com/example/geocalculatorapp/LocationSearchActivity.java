@@ -54,7 +54,8 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         DateTime today = DateTime.now();
-      // dpDialog = DatePickerDialog.newInstance (this, today.getYear(), today.getMonthOfYear() - 1, today.getDayOfMonth());
+//        dpDialog = DatePickerDialog.newInstance (this, today.getYear(), today.getMonthOfYear() - 1, today.getDayOfMonth());
+        dpDialog = new DatePickerDialog(this,this,  today.getYear(), today.getMonthOfYear() - 1, today.getDayOfMonth());
 
 
        // DatePickerDialog.OnDateSetListener;
@@ -77,20 +78,24 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
 
     @OnClick(R.id.fab)
     public void FABPressed() {
-        Intent result = new Intent();
-        LocationLookup alocationlookup = new LocationLookup();
-        alocationlookup.getOrigLat();
-        alocationlookup.getOrigLng();
-        alocationlookup.getEndLat();
-        alocationlookup.getEndLng();
-       // DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
-       // alocationlookup.date = fmt.print(date);
-        alocationlookup.getTimestamp();
-        // alocationlookup.endLng = endLat.getText().toString();
-        Parcelable parcel = Parcels.wrap(alocationlookup);
-        result.putExtra("Location", parcel);
-        setResult(RESULT_OK, result);
-        finish();
+
+            Intent result = new Intent();
+            LocationLookup alocationlookup = new LocationLookup();
+            System.out.println("location Pressed");
+           alocationlookup.getOrigLat();
+            alocationlookup.getOrigLng();
+            alocationlookup.getEndLat();
+            alocationlookup.getEndLng();
+
+            // DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+            // alocationlookup.date = fmt.print(date);
+            alocationlookup.getTimestamp();
+            // alocationlookup.endLng = endLat.getText().toString();
+            Parcelable parcel = Parcels.wrap(alocationlookup);
+            result.putExtra("Location", parcel);
+            setResult(RESULT_OK, result);
+            finish();
+
     }
 
     private String formatted(DateTime d) {
@@ -105,8 +110,11 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place pl = Autocomplete.getPlaceFromIntent(data);
-                        loc_info.setText(pl.getAddress());
-                Log.i(TAG, "Place:" + pl.getAddress());
+                        loc1.setText(pl.getName());
+                        System.out.println("Ldhjwfb" +pl);
+
+
+                Log.i(TAG, "Place:" + pl.getName());
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                                 Status stat = Autocomplete.getStatusFromIntent(data);
                 Log.d(TAG, stat.getStatusMessage());
