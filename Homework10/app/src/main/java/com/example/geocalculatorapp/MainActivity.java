@@ -66,12 +66,10 @@ public class MainActivity extends AppCompatActivity   {
     public static int HISTORY_RESULT = 2;
     DatabaseReference topRef;
     public static List<LocationLookup> allHistory;
-    final int NEW_LOCATION_REQUEST = 1;
+    public final static int NEW_LOCATION_REQUEST = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
 
 
         super.onCreate(savedInstanceState);
@@ -87,24 +85,25 @@ public class MainActivity extends AppCompatActivity   {
         longitudeTwo = (EditText) findViewById(R.id.long2);
         calculate = (Button) findViewById(R.id.calculateButton);
         Button clear = (Button) findViewById(R.id.clearButton);
-       // Button search = (Button) findViewById(R.id.search);
-         Button search = (Button) findViewById(R.id.search) ;
+        // Button search = (Button) findViewById(R.id.search);
+        Button search = (Button) findViewById(R.id.search);
         // search.setOnClickListener(new View.OnClickListener() {
 
         // });
+
 
         distance = String.valueOf(distanceDisplay.getText());
         bearing = String.valueOf(bearingDisplay.getText());
         search.setOnClickListener(v -> {
             //@Override
-           // public void onClick(View v) {
-                Intent newLocation = new Intent(MainActivity.this,LocationSearchActivity.class);
-                startActivityForResult(newLocation,NEW_LOCATION_REQUEST);
-           // }
+            // public void onClick(View v) {
+            Intent newLocation = new Intent(MainActivity.this, LocationSearchActivity.class);
+            startActivityForResult(newLocation, NEW_LOCATION_REQUEST);
+            // }
         });
-        calculate.setOnClickListener(v-> {
-            if(isCreatable(latitudeOne.getText().toString()) && isCreatable(latitudeTwo.getText().toString())
-            && isCreatable(longitudeOne.getText().toString()) && isCreatable(longitudeTwo.getText().toString())) {
+        calculate.setOnClickListener(v -> {
+            if (isCreatable(latitudeOne.getText().toString()) && isCreatable(latitudeTwo.getText().toString())
+                    && isCreatable(longitudeOne.getText().toString()) && isCreatable(longitudeTwo.getText().toString())) {
                 lat1 = Double.valueOf(String.valueOf(latitudeOne.getText()));
                 lat2 = Double.valueOf(String.valueOf(latitudeTwo.getText()));
                 lng1 = Double.valueOf(String.valueOf(longitudeOne.getText()));
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity   {
                     InputMethodManager.HIDE_NOT_ALWAYS);
         });
 
-        clear.setOnClickListener(v-> {
+        clear.setOnClickListener(v -> {
             distanceDisplay.setText("");
             bearingDisplay.setText("");
             latitudeOne.setText("");
@@ -143,8 +142,8 @@ public class MainActivity extends AppCompatActivity   {
             inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                     InputMethodManager.HIDE_NOT_ALWAYS);
         });
-       // autocompleteAdapter = new PlaceAutocompleteAdapter(getActivity(),Places.getGeoDataClient(getActivity(), null),Lat_Long_Bounds,null);//
-        Places.initialize(getApplicationContext(),"AIzaSyAc7JN-795C-G1K-mJ0U2USu6xNMJgSSn0");
+        // autocompleteAdapter = new PlaceAutocompleteAdapter(getActivity(),Places.getGeoDataClient(getActivity(), null),Lat_Long_Bounds,null);//
+        Places.initialize(getApplicationContext(), "AIzaSyAc7JN-795C-G1K-mJ0U2USu6xNMJgSSn0");
         PlacesClient placesClient = Places.createClient(this);
 
     }
@@ -230,7 +229,9 @@ public class MainActivity extends AppCompatActivity   {
             this.bearingUnits = data.getStringExtra("bearingUnits");
             this.distanceUnits = data.getStringExtra("distanceUnits");
             calculate.performClick();
-        } else if (resultCode == HISTORY_RESULT) {
+        }
+
+        if (resultCode == HISTORY_RESULT) {
             LocationLookup loc = (LocationLookup) Parcels.unwrap(getIntent().getParcelableExtra("item"));
             /*String[] vals = data.getStringArrayExtra("item");
             this.latitudeOne.setText(vals[0]);
@@ -244,10 +245,21 @@ public class MainActivity extends AppCompatActivity   {
             calculate.performClick();  // code that updates the calcs.
         }
 
-            else if (resultCode == NEW_LOCATION_REQUEST) {
+       if (resultCode == NEW_LOCATION_REQUEST) {
+
                 if (data != null && data.hasExtra("Location")) {
+
                     Parcelable parcel = data.getParcelableExtra("Location");
                     LocationLookup l = Parcels.unwrap(parcel);
+                    lat1 = l.origLat;
+                    lat2 = l.endLat;
+                    lng1 = l.origLng;
+                    lng2 = l.endLng;
+                    latitudeOne.setText(new Double(lat1).toString());
+                    latitudeTwo.setText(new Double(lat2).toString());
+                    longitudeOne.setText(new Double(lng1).toString());
+                    longitudeTwo.setText(new Double(lng2).toString());
+                  calculate.performClick();
                     Log.d("MainActivity", "New Loc:" + l.endLng);
                     Log.d("MainActivity", "New Loc:" + l.origLat);
                     Log.d("MainActivity", "New Loc:" + l.endLat);
