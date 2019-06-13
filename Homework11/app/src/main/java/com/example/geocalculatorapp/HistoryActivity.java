@@ -2,6 +2,7 @@ package com.example.geocalculatorapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,11 +30,11 @@ public class HistoryActivity extends AppCompatActivity implements HistoryFragmen
         });
     }
 
-    public void onListFragmentInteraction(LocationLookup item) { //TODO is this right?
-        System.out.println("Interact!");
-        Intent intent = new Intent();
-        //String[] vals = {String.valueOf(item.origLat), String.valueOf(item.origLng), String.valueOf(item.endLat), String.valueOf(item.endLng)};
-        intent.putExtra("item", Parcels.wrap(item));
+    public void onListFragmentInteraction(LocationLookup item) {
+        System.out.println("ITEM INFOBEFORE INTENT PASSES: " + item.getOrigLng() + " " + item.getEndLat());
+        Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
+        Parcelable parcel = Parcels.wrap(item);
+        intent.putExtra("item", parcel);
         setResult(MainActivity.HISTORY_RESULT,intent);
         finish();
     }

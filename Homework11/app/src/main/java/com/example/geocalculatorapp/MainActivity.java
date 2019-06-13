@@ -103,19 +103,12 @@ public class MainActivity extends AppCompatActivity   {
         weatherTwo = (TextView) findViewById(R.id.weatherTwo);
         imgOne = (ImageView) findViewById(R.id.imgOne);
         imgTwo = (ImageView) findViewById(R.id.imgTwo);
-        tempOne.setVisibility(View.INVISIBLE);
-        tempTwo.setVisibility(View.INVISIBLE);
-        weatherOne.setVisibility(View.INVISIBLE);
-        weatherTwo.setVisibility(View.INVISIBLE);
 
         distance = String.valueOf(distanceDisplay.getText());
         bearing = String.valueOf(bearingDisplay.getText());
         search.setOnClickListener(v -> {
-            //@Override
-            // public void onClick(View v) {
             Intent newLocation = new Intent(MainActivity.this, LocationSearchActivity.class);
             startActivityForResult(newLocation, NEW_LOCATION_REQUEST);
-            // }
         });
         calculate.setOnClickListener(v -> {
             if (isCreatable(latitudeOne.getText().toString()) && isCreatable(latitudeTwo.getText().toString())
@@ -144,8 +137,8 @@ public class MainActivity extends AppCompatActivity   {
             InputMethodManager inputManager = (InputMethodManager)
                     getSystemService(Context.INPUT_METHOD_SERVICE);
 
-            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
+            //inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+               //     InputMethodManager.HIDE_NOT_ALWAYS);
         });
 
         clear.setOnClickListener(v -> {
@@ -159,10 +152,9 @@ public class MainActivity extends AppCompatActivity   {
             InputMethodManager inputManager = (InputMethodManager)
                     getSystemService(Context.INPUT_METHOD_SERVICE);
 
-            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
+           // inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                 //   InputMethodManager.HIDE_NOT_ALWAYS);
         });
-        // autocompleteAdapter = new PlaceAutocompleteAdapter(getActivity(),Places.getGeoDataClient(getActivity(), null),Lat_Long_Bounds,null);//
         Places.initialize(getApplicationContext(), "AIzaSyAc7JN-795C-G1K-mJ0U2USu6xNMJgSSn0");
         PlacesClient placesClient = Places.createClient(this);
 
@@ -171,6 +163,7 @@ public class MainActivity extends AppCompatActivity   {
     private BroadcastReceiver weatherReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            System.out.println("IN RECEIVER");
             Bundle bundle = intent.getExtras();
             double temp = bundle.getDouble("TEMPERATURE");
             String summary = bundle.getString("SUMMARY");
@@ -238,12 +231,12 @@ public class MainActivity extends AppCompatActivity   {
     @Override
     public void onResume(){
         super.onResume();
-        IntentFilter weatherFilter = new IntentFilter(BROADCAST_WEATHER);
-        LocalBroadcastManager.getInstance(this).registerReceiver(weatherReceiver, weatherFilter);
-        setWeatherViews(View.INVISIBLE);
         allHistory.clear();
         topRef = FirebaseDatabase.getInstance().getReference("history");
         topRef.addChildEventListener (chEvListener);
+        IntentFilter weatherFilter = new IntentFilter(BROADCAST_WEATHER);
+        LocalBroadcastManager.getInstance(this).registerReceiver(weatherReceiver, weatherFilter);
+        setWeatherViews(View.INVISIBLE);
     }
 
     @Override
@@ -283,12 +276,7 @@ public class MainActivity extends AppCompatActivity   {
         }
 
         if (resultCode == HISTORY_RESULT) {
-            LocationLookup loc = (LocationLookup) Parcels.unwrap(getIntent().getParcelableExtra("item"));
-            /*String[] vals = data.getStringArrayExtra("item");
-            this.latitudeOne.setText(vals[0]);
-            this.longitudeOne.setText(vals[1]);
-            this.latitudeTwo.setText(vals[2]);
-            this.longitudeTwo.setText(vals[3]); */
+            LocationLookup loc = (LocationLookup) Parcels.unwrap(data.getParcelableExtra("item"));
             this.latitudeOne.setText(String.valueOf(loc.origLat));
             this.longitudeOne.setText(String.valueOf(loc.origLng));
             this.latitudeTwo.setText(String.valueOf(loc.endLat));

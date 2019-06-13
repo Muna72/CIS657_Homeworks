@@ -62,11 +62,7 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         DateTime today = DateTime.now();
-//        dpDialog = DatePickerDialog.newInstance (this, today.getYear(), today.getMonthOfYear() - 1, today.getDayOfMonth());
         dpDialog = new DatePickerDialog(this, this, today.getYear(), today.getMonthOfYear() - 1, today.getDayOfMonth());
-
-
-        // DatePickerDialog.OnDateSetListener;
         dateView.setText(formatted(today));
         date = today;
     }
@@ -89,10 +85,8 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
     @OnClick(R.id.date)
     public void datePressed() {
         dpDialog.show();
-        //dpDialog.show(getFragmentManager(), "daterangeddialog");
     }
 
-    //LocationLookup alocationlookup = new LocationLookup();
 
     @OnClick(R.id.fab)
     public void FABPressed() {
@@ -111,7 +105,6 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
         Parcelable parcel = Parcels.wrap(alocationlookup);
         result.putExtra("Location", parcel);
         setResult(MainActivity.NEW_LOCATION_REQUEST, result);
-       // startActivity(result);
         finish();
     }
 
@@ -158,10 +151,9 @@ public class LocationSearchActivity extends AppCompatActivity implements DatePic
         System.out.println("Cancelled");
     }
 
-             else
-                     super.onActivityResult(requestCode, resultCode, data);
-
-
+    else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
 }
 
 

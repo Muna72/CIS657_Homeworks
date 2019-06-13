@@ -32,7 +32,7 @@ public class WeatherService extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     private static final String ACTION_WEATHER_AT = "cis.gvsu.edu.geocalculator.webservice.action.WEATHER_AT";
-    private static final String BASE_URL = "https://api.darksky.net/forecast/b8f1f4f59d105c87289125d97ab5210a";
+    private static final String BASE_URL = "https://api.darksky.net/forecast/de7dc31fad93010806e4722dabb8f143/";
     public static final String BROADCAST_WEATHER = "cis.gvsu.edu.geocalculator.webservice.action.BROADCAST";
     // TODO: Rename parameters
     private static final String EXTRA_KEY = "cis.gvsu.edu.geocalculator.webservice.extra.KEY";
@@ -81,7 +81,7 @@ public class WeatherService extends IntentService {
     private void fetchWeatherData(String key, String lat, String lon, String time) {
         try {
             // TODO: Format the url based on the input params
-            URL url = new URL(BASE_URL + String.format("%s,%s",lat,lon));
+            URL url = new URL(BASE_URL + lat + "," + lon);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(5000 /* milliseconds */);
             conn.setConnectTimeout(10000 /* milliseconds */);
@@ -105,18 +105,11 @@ public class WeatherService extends IntentService {
                 String icon = current.getString("icon");
                 Double temp = current.getDouble("temperature");
 
-                // TODO: extract the values you need out of current
-
                 Intent result = new Intent(BROADCAST_WEATHER);
                 result.putExtra("SUMMARY",condition);
                 result.putExtra("TEMPERATURE",temp);
                 result.putExtra("ICON",icon);
                 result.putExtra("KEY",key);
-
-
-                // TODO: use putExtra to add the extracted values to your broadcast
-
-
                 LocalBroadcastManager.getInstance(this).sendBroadcast(result);
             }
         } catch (MalformedURLException e) {
