@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "428674005271",
+    "firebase_url": "https://cis657homework.firebaseio.com",
+    "project_id": "cis657homework",
+    "storage_bucket": "cis657homework.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428674005271:android:869695ab2d52bdc8",
+        "android_client_info": {
+          "package_name": "com.example.geocalculatorapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428674005271-ijk13m1jvpkk0pop0ckuqkhu2nqqul0d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.geocalculatorapp",
+            "certificate_hash": "3c3ce668387635b3b8cd44ff18780b13b1ef9d82"
+          }
+        },
+        {
+          "client_id": "428674005271-vkvh29cnogevvoikbt265anutavsr48p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkPZtOFOGntZlwO76ZrRjVoXWo3TU7CuI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428674005271-vkvh29cnogevvoikbt265anutavsr48p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
