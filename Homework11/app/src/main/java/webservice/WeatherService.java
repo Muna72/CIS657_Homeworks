@@ -32,7 +32,7 @@ public class WeatherService extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     private static final String ACTION_WEATHER_AT = "cis.gvsu.edu.geocalculator.webservice.action.WEATHER_AT";
-    private static final String BASE_URL = "https://api.darksky.net/forecast/YOUR-DARK-SKY-API-KEY-GOES-HERE";
+    private static final String BASE_URL = "https://api.darksky.net/forecast/b8f1f4f59d105c87289125d97ab5210a";
     public static final String BROADCAST_WEATHER = "cis.gvsu.edu.geocalculator.webservice.action.BROADCAST";
     // TODO: Rename parameters
     private static final String EXTRA_KEY = "cis.gvsu.edu.geocalculator.webservice.extra.KEY";
@@ -101,14 +101,22 @@ public class WeatherService extends IntentService {
                 }
                 JSONObject data = new JSONObject(new String(baos.toByteArray()));
                 JSONObject current = data.getJSONObject("currently");
+                String condition = current.getString("summary");
+                String icon = current.getString("icon");
+                Double temp = current.getDouble("temperature");
 
                 // TODO: extract the values you need out of current
 
                 Intent result = new Intent(BROADCAST_WEATHER);
+                result.putExtra("SUMMARY",condition);
+                result.putExtra("TEMPERATURE",temp);
+                result.putExtra("ICON",icon);
+                result.putExtra("KEY",key);
+
 
                 // TODO: use putExtra to add the extracted values to your broadcast
 
-                result.putExtra("KEY", key);
+
                 LocalBroadcastManager.getInstance(this).sendBroadcast(result);
             }
         } catch (MalformedURLException e) {
