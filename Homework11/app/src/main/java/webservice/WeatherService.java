@@ -81,7 +81,7 @@ public class WeatherService extends IntentService {
     private void fetchWeatherData(String key, String lat, String lon, String time) {
         try {
             // TODO: Format the url based on the input params
-            URL url = new URL(BASE_URL + "UPDATE THIS PART OF THE URL");
+            URL url = new URL(BASE_URL + String.format("%s,%s",lat,lon));
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(5000 /* milliseconds */);
             conn.setConnectTimeout(10000 /* milliseconds */);
